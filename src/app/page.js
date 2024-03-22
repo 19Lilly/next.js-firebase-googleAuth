@@ -1,10 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import app from './config.js';
-import { getAuth } from 'firebase/auth';
+import { auth } from '@/app/config.js'
 import { useRouter } from 'next/navigation';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import TimeTracker from './TimeTracker/page.js';
+import TimeTracker from './TimeTracker/page.jsx';
 import GoogleLogo from './components/GoogleLogo.js';
 
 const Home = () => {
@@ -12,7 +11,7 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const auth = getAuth(app);
+  
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         setUser(user);
@@ -24,7 +23,7 @@ const Home = () => {
   }, []);
 
   const signInWithGoogle = async () => {
-    const auth = getAuth(app);
+
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
@@ -57,4 +56,3 @@ const Home = () => {
 };
 
 export default Home;
-

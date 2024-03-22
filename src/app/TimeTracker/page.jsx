@@ -1,20 +1,16 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/app/config';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useRouter } from 'next/navigation';
 import app from '../config';
 import LogOutIcon from '../components/LogOutIcon';
 import Timer from '../components/Timer';
 
-
 const TimeTracker = () => {
-  const auth = getAuth(app);
   const router = useRouter();
   const [user, setUser] = useState(null);
-  
-  
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -36,8 +32,6 @@ const TimeTracker = () => {
     }
   };
 
-   
-
   return (
     <div className='flex flex-col items-center w-full max-w-3xl h-screen mx-auto'>
       <header className='p-6 flex justify-between gap-10 border-b-2'>
@@ -52,7 +46,6 @@ const TimeTracker = () => {
         </button>
       </header>
       <Timer />
-    
     </div>
   );
 };
