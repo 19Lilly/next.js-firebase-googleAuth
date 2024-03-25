@@ -1,10 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { auth } from '@/app/config';
+import { auth } from '../config';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { getDatabase, ref, onValue } from 'firebase/database';
 import { useRouter } from 'next/navigation';
-import app from '../config';
+
 import LogOutIcon from '../components/LogOutIcon';
 import Timer from '../components/Timer';
 
