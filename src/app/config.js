@@ -18,6 +18,8 @@ if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
 
-const auth = getAuth();
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
 // Initialize Firebase auth
 export default auth;
