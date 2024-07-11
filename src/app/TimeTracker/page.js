@@ -1,39 +1,22 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import auth from '../config';
-import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { getDatabase, ref, onValue } from 'firebase/database';
-
-import { useRouter } from 'next/navigation';
-
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import LogOutIcon from '../components/LogOutIcon';
 import Timer from '../components/Timer';
+import { useRouter } from 'next/navigation';
 import EntriesList from '../components/EntriesList';
 
 const TimeTracker = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [entries, setEntries] = useState([] || getDatafromDB());
-
-  const getDatafromDB = () => {
-    const database = getDatabase();
-    const referenceInDB = ref(
-      database,
-      `users/${auth.currentUser.uid}/timeEntries`
-    );
-   let entriesDB = onValue(referenceInDB, snapshot => {
-      return Object.values(snapshot.val());
-   });
-   
-    setEntries(entriesDB);
-  };
-  console.log(entries)
+  const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+  const auth = getAuth(app);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = auth().onAuthStateChanged(auth, user => {
       if (user) {
         setUser(user);
-        getDatafromDB();
       } else {
         router.push('/');
       }
@@ -64,7 +47,7 @@ const TimeTracker = () => {
         </button>
       </header>
       <Timer />
-      <EntriesList entries={entries} />
+      <EntriesList />
     </div>
   );
 };

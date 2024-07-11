@@ -6,6 +6,7 @@ import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import TimeTracker from './TimeTracker/page.jsx';
 import GoogleLogo from './components/GoogleLogo.js';
 
+
 const Home = () => {
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -36,7 +37,7 @@ const Home = () => {
   return (
     <div className='flex flex-col items-center justify-center h-screen'>
       {user ? (
-        <TimeTracker />
+          <TimeTracker />
       ) : (
         <>
           <h1 className='text-emerald-600 text-6xl'>Time Tracker App</h1>
