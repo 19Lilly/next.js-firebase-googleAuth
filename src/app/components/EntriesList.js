@@ -1,17 +1,13 @@
-import React from 'react';
+import React from 'react'
+import { getDatabase, ref, onValue } from 'firebase/database';
+import auth from '../config'
 
+const EntriesList = () => {
 
-const EntriesList = ({entries}) => {
- console.log(entries)
 
   return (
-    <ul className='bg-zinc-200 w-full p-4 rounded-xl '>
-      <li>ahoj</li>
-      {entries?.map(entry => {
-        <li>${entry}</li>
-      })}
-    </ul>
-  );
-};
+    <div>EntriesList</div>
+  )
+}
 
-export default EntriesList;
+export default EntriesList

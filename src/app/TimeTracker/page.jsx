@@ -2,38 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import auth from '../config';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { getDatabase, ref, onValue } from 'firebase/database';
-
 import { useRouter } from 'next/navigation';
 
 import LogOutIcon from '../components/LogOutIcon';
 import Timer from '../components/Timer';
-import EntriesList from '../components/EntriesList';
 
 const TimeTracker = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [entries, setEntries] = useState([] || getDatafromDB());
-
-  const getDatafromDB = () => {
-    const database = getDatabase();
-    const referenceInDB = ref(
-      database,
-      `users/${auth.currentUser.uid}/timeEntries`
-    );
-   let entriesDB = onValue(referenceInDB, snapshot => {
-      return Object.values(snapshot.val());
-   });
-   
-    setEntries(entriesDB);
-  };
-  console.log(entries)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
         setUser(user);
-        getDatafromDB();
       } else {
         router.push('/');
       }
@@ -64,7 +45,6 @@ const TimeTracker = () => {
         </button>
       </header>
       <Timer />
-      <EntriesList entries={entries} />
     </div>
   );
 };
