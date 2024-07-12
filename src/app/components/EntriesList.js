@@ -46,16 +46,19 @@ const EntriesList = () => {
   console.log(entries)
 
   return (
-    <div className='w-full bg-zinc-400'>
-      <h1>EntriesList</h1>
-      <ul key={useId()} className=''>
+    <div className='w-full'>
+      <h1 className='text-3xl text-white py-2'>Your entries:</h1>
+      <ul key={useId()} className='gap-2 grid md:grid-cols-2  lg:grid-cols-4 pt-2 pb-4'>
         {entries.map((entry) => { 
           return (
-            <li key={entry[0].id} className='bg-white text-black flex gap-4'>
+            <li
+              key={entry[0].id}
+              className='text-white flex gap-4 p-2 bg-zinc-500 rounded-xl shadow-[0px_0px_3px_1px_#A7F3D0]'
+            >
               <p>{entry[1].date}</p>
               <p>{convertTimetoString(entry[1].time)} </p>
             </li>
-          )  
+          );  
         })}
       </ul>
     </div>
