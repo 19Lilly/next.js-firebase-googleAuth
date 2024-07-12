@@ -63,9 +63,9 @@ const Timer = () => {
   };
 
   return (
-    <div className='bg-emerald-200 mt-6 p-4 w-full rounded-xl flex justify-between gap-6 items-center text-2xl '>
+    <div className='bg-emerald-200 mt-6 p-4 w-full rounded-xl flex flex-col min-[450px]:flex-row justify-between gap-6 items-center text-2xl '>
       <div>{date}</div>
-      <div className='mr-auto'>{convertTimetoString(time)}</div>
+      <div className=' sm:mr-auto'>{convertTimetoString(time)}</div>
       <div className='flex gap-2 '>
         {timerOn && <PauseButton toggleTimer={toggleTimer} />}
         {!timerOn && <StartButton toggleTimer={toggleTimer} />}

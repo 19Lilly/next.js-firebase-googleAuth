@@ -34,12 +34,12 @@ const Home = () => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
+    <div className='flex flex-col items-center justify-center text-center h-screen'>
       {user ? (
         <TimeTracker />
       ) : (
         <>
-          <h1 className='text-emerald-600 text-6xl'>Time Tracker App</h1>
+          <h1 className='text-emerald-600 text-6xl mb-2 md:mb-0'>Time Tracker App</h1>
           <h2 className='text-white text-2xl'>
             Know how long exactly it takes...{' '}
           </h2>
