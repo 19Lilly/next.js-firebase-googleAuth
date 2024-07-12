@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import PauseButton from './PauseButton';
 import StartButton from './StartButton';
-import  {auth}  from '../config'
+import { auth } from '../config';
 import { getDatabase, ref, push, serverTimestamp } from 'firebase/database';
 
 const Timer = () => {
@@ -44,7 +44,6 @@ const Timer = () => {
 
   const saveData = () => {
     const database = getDatabase();
-    const userInputDate = date;
     const userInputTime = time;
     const referenceInDB = ref(
       database,
@@ -52,14 +51,17 @@ const Timer = () => {
     );
 
     const timeEntryObject = {
-      date: userInputDate,
+      date: date,
       time: userInputTime,
       createdAt: serverTimestamp(),
     };
-
-    push(referenceInDB, timeEntryObject);
-    setTime(0);
-    setTimerOn(false);
+    if (time !== 0) {
+      push(referenceInDB, timeEntryObject);
+      setTime(0);
+      setTimerOn(false);  
+    } else {
+      window.alert("please enter a valid time entry")
+    }
   };
 
   return (
