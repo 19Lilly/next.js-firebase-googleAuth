@@ -1,11 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import auth from '../config';
+import {auth} from '../config';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
 import LogOutIcon from '../components/LogOutIcon';
 import Timer from '../components/Timer';
+import EntriesList from '../components/EntriesList';
 
 const TimeTracker = () => {
   const router = useRouter();
@@ -45,6 +46,7 @@ const TimeTracker = () => {
         </button>
       </header>
       <Timer />
+      <EntriesList />
     </div>
   );
 };

@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react';
 import PauseButton from './PauseButton';
 import StartButton from './StartButton';
-import app from '../config';
-import { getAuth } from 'firebase/auth';
+import  {auth}  from '../config'
 import { getDatabase, ref, push, serverTimestamp } from 'firebase/database';
 
 const Timer = () => {
@@ -45,7 +44,6 @@ const Timer = () => {
 
   const saveData = () => {
     const database = getDatabase();
-    const auth = getAuth(app);
     const userInputDate = date;
     const userInputTime = time;
     const referenceInDB = ref(
@@ -63,8 +61,6 @@ const Timer = () => {
     setTime(0);
     setTimerOn(false);
   };
-
-  
 
   return (
     <div className='bg-emerald-200 mt-6 p-4 w-full rounded-xl flex justify-between gap-6 items-center text-2xl '>

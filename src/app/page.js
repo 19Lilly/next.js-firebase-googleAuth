@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import auth from '../app/config'
+import {auth}  from '../app/config'
 import { useRouter } from 'next/navigation';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import TimeTracker from './TimeTracker/page.jsx';
+import TimeTracker from './TimeTracker/page.js';
 import GoogleLogo from './components/GoogleLogo.js';
 
 const Home = () => {

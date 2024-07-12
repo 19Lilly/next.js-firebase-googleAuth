@@ -18,8 +18,10 @@ if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+export const  auth = getAuth(app);
 // Initialize Firebase auth
-export default auth;
+
+
+
