@@ -5,6 +5,7 @@ import PauseButton from './PauseButton';
 import StartButton from './StartButton';
 import { auth } from '../config';
 import { getDatabase, ref, push, serverTimestamp } from 'firebase/database';
+import { clearInterval, setInterval } from 'worker-timers';
 
 const Timer = () => {
   const [timerOn, setTimerOn] = useState(false);
@@ -58,9 +59,9 @@ const Timer = () => {
     if (time !== 0) {
       push(referenceInDB, timeEntryObject);
       setTime(0);
-      setTimerOn(false);  
+      setTimerOn(false);
     } else {
-      window.alert("please enter a valid time entry")
+      window.alert('please enter a valid time entry');
     }
   };
 
