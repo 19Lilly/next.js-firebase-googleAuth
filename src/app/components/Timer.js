@@ -99,7 +99,7 @@ const Timer = () => {
   };
 
   return (
-    <div className='bg-emerald-200 mt-6 p-4 w-full rounded-xl flex flex-col min-[450px]:flex-row justify-between gap-6 items-center text-2xl '>
+    <div className='bg-emerald-400 dark:bg-emerald-200 mt-6 p-6 w-full rounded-xl flex flex-col min-[450px]:flex-row justify-between gap-6 items-center text-3xl md:text-4xl'>
       <div>{date}</div>
       <div className=' sm:mr-auto'>{convertTimetoString(timer.timerValue)}</div>
       <div className='flex gap-2 '>
