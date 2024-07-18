@@ -1,39 +1,71 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import PauseButton from './PauseButton';
 import StartButton from './StartButton';
 import { auth } from '../config';
 import { getDatabase, ref, push, serverTimestamp } from 'firebase/database';
 import { clearInterval, setInterval } from 'worker-timers';
 
+const REFRESH_FREQ = 1000;
+
 const Timer = () => {
-  const [timerOn, setTimerOn] = useState(false);
-  const [time, setTime] = useState(0);
   const [date, setDate] = useState(new Date().toLocaleDateString('en-GB'));
 
-  useEffect(() => {
-    let interval = null;
-    if (timerOn) {
-      interval = setInterval(() => {
-        setTime(time => time + 1);
-      }, 1000);
-    } else {
-      clearInterval(interval);
-    }
-    return () => {
-      clearInterval(interval);
-    };
-  }, [timerOn]);
+  const watchDogRef = useRef(0);
+  const [paused, setPaused] = useState(true);
+  const [timer, setTimer] = useState({
+    timerValue: 0,
+    lastTime: Date.now(),
+  });
 
-  const toggleTimer = () => {
-    setTimerOn(prevVal => !prevVal);
+  const refreshTimer = () => {
+    const now = Date.now();
+      setTimer(ps => ({
+      timerValue: ps.timerValue + (now - ps.lastTime),
+      lastTime: now,
+    }));
   };
 
+  const resetTimer = () => {
+    setTimer(() => ({
+      timerValue: 0,
+      lastTime: Date.now(),
+    }));
+  };
+
+  useEffect(() => {
+    // Starting timer for the first time.
+    if (!watchDogRef.current && !paused) {
+      watchDogRef.current = setInterval(refreshTimer, REFRESH_FREQ);
+    }
+  }, []);
+
+  useEffect(() => {
+    // paused turned true, so we clear the interval.
+    if (paused) {
+      // Clearing the interval.
+      clearInterval(watchDogRef.current);
+      // Clearing the reference to the interval.
+      watchDogRef.current = 0;
+      // Updating the timer with remaining of the second when the value is set to pause as the timer will not be updated.
+      refreshTimer();
+    }
+
+    // paused turned false, so we resume the timer
+    else if (!watchDogRef.current) {
+      // Setting last time to now() since we need to calculate the time from the moment timer was resumed.
+      setTimer(ps => ({ ...ps, lastTime: Date.now() }));
+      // Creating creating the watchdog interval.
+      watchDogRef.current = setInterval(refreshTimer, REFRESH_FREQ);
+    }
+  }, [paused]);
+
   const convertTimetoString = time => {
-    let hours = Math.floor(time / 3600);
-    let minutes = Math.floor((time - hours * 3600) / 60);
-    let seconds = time - hours * 3600 - minutes * 60;
+    let time1 = Math.floor(time/1000)
+    let hours = Math.floor(time1 / 3600);
+    let minutes = Math.floor((time1 - hours * 3600) / 60);
+    let seconds = time1 - hours * 3600 - minutes * 60;
     return (
       hours.toString().padStart(2, '0') +
       ':' +
@@ -45,7 +77,7 @@ const Timer = () => {
 
   const saveData = () => {
     const database = getDatabase();
-    const userInputTime = time;
+    const userInputTime = Math.round(timer.timerValue/1000);
     const referenceInDB = ref(
       database,
       `users/${auth.currentUser.uid}/timeEntries`
@@ -56,10 +88,9 @@ const Timer = () => {
       time: userInputTime,
       createdAt: serverTimestamp(),
     };
-    if (time !== 0) {
+    if (timer.timerValue !== 0) {
       push(referenceInDB, timeEntryObject);
-      setTime(0);
-      setTimerOn(false);
+      resetTimer();
     } else {
       window.alert('please enter a valid time entry');
     }
@@ -68,10 +99,14 @@ const Timer = () => {
   return (
     <div className='bg-emerald-200 mt-6 p-4 w-full rounded-xl flex flex-col min-[450px]:flex-row justify-between gap-6 items-center text-2xl '>
       <div>{date}</div>
-      <div className=' sm:mr-auto'>{convertTimetoString(time)}</div>
+      <div className=' sm:mr-auto'>{convertTimetoString(timer.timerValue)}</div>
       <div className='flex gap-2 '>
-        {timerOn && <PauseButton toggleTimer={toggleTimer} />}
-        {!timerOn && <StartButton toggleTimer={toggleTimer} />}
+        {!paused && (
+          <PauseButton toggleTimer={() => setPaused(prevVal => !prevVal)} />
+        )}
+        {paused && (
+          <StartButton toggleTimer={() => setPaused(prevVal => !prevVal)} />
+        )}
         <button
           className='rounded p-2 border font-semibold border-zinc-950 hover:bg-zinc-950 hover:text-emerald-600 hover:shadow-[0px_0px_10px_2px_#10B981]'
           onClick={saveData}
