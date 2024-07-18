@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import PauseButton from './PauseButton';
 import StartButton from './StartButton';
+import CancelButton from './CancelButton';
+import SaveButton from './SaveButton';
 import { auth } from '../config';
 import { getDatabase, ref, push, serverTimestamp } from 'firebase/database';
 import { clearInterval, setInterval } from 'worker-timers';
@@ -21,7 +23,7 @@ const Timer = () => {
 
   const refreshTimer = () => {
     const now = Date.now();
-      setTimer(ps => ({
+    setTimer(ps => ({
       timerValue: ps.timerValue + (now - ps.lastTime),
       lastTime: now,
     }));
@@ -62,7 +64,7 @@ const Timer = () => {
   }, [paused]);
 
   const convertTimetoString = time => {
-    let time1 = Math.floor(time/1000)
+    let time1 = Math.floor(time / 1000);
     let hours = Math.floor(time1 / 3600);
     let minutes = Math.floor((time1 - hours * 3600) / 60);
     let seconds = time1 - hours * 3600 - minutes * 60;
@@ -77,7 +79,7 @@ const Timer = () => {
 
   const saveData = () => {
     const database = getDatabase();
-    const userInputTime = Math.round(timer.timerValue/1000);
+    const userInputTime = Math.round(timer.timerValue / 1000);
     const referenceInDB = ref(
       database,
       `users/${auth.currentUser.uid}/timeEntries`
@@ -107,12 +109,8 @@ const Timer = () => {
         {paused && (
           <StartButton toggleTimer={() => setPaused(prevVal => !prevVal)} />
         )}
-        <button
-          className='rounded p-2 border font-semibold border-zinc-950 hover:bg-zinc-950 hover:text-emerald-600 hover:shadow-[0px_0px_10px_2px_#10B981]'
-          onClick={saveData}
-        >
-          Save
-        </button>
+      <SaveButton handleClick={saveData}/> 
+      <CancelButton handleDoubleClick={resetTimer} />
       </div>
     </div>
   );
