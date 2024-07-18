@@ -3,7 +3,7 @@ import React from 'react';
 const PauseButton = ({ toggleTimer }) => {
   return (
     <button
-      className='rounded p-2 border border-zinc-950 hover:bg-zinc-950 hover:text-emerald-600 hover:shadow-[0px_0px_10px_2px_#10B981]'
+      className='rounded p-2 border border-zinc-950 hover:bg-zinc-950 hover:text-emerald-600 hover:shadow-[0px_0px_10px_2px_#DB2777] dark:hover:shadow-[0px_0px_10px_2px_#10B981]'
       onClick={toggleTimer}
     >
       <svg

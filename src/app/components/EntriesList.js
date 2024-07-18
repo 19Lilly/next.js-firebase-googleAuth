@@ -57,7 +57,7 @@ const EntriesList = () => {
 
   return (
     <div className='w-full'>
-      <h1 className='text-3xl text-white py-2'>Your entries:</h1>
+      <h1 className='text-3xl dark:text-white py-2'>Your entries:</h1>
       <ul
         key={useId()}
         className='gap-2 grid md:grid-cols-2 lg:grid-cols-3 pt-2 pb-4'
@@ -67,10 +67,10 @@ const EntriesList = () => {
             return (
               <li
                 key={entry[0]}
-                className='text-white flex justify-between gap-2 items-center p-2 bg-zinc-500 rounded-xl shadow-[0px_0px_3px_1px_#A7F3D0]'
+                className='text-white flex justify-between gap-6 items-center p-3 bg-zinc-500 rounded-xl shadow-[0px_0px_3px_1px_#059669] dark:shadow-[0px_0px_3px_1px_#DB2777]'
               >
                 <p>{entry[1].date}</p>
-                <p className='sm:mr-auto '>
+                <p className='mr-auto '>
                   {convertTimetoString(entry[1].time)}
                 </p>
                 <button

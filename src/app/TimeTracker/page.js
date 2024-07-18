@@ -33,14 +33,14 @@ const TimeTracker = () => {
   };
 
   return (
-    <div className='flex flex-col items-center w-full max-w-3xl h-screen mx-auto'>
-      <header className='p-6 flex flex-col sm:flex-row justify-between gap-10 border-b-2'>
-        <h1 className='text-3xl font-bold  text-white text-wrap'>
+    <div className='flex flex-col  w-full max-w-6xl mx-auto'>
+      <header className='pb-6 flex flex-col items-start sm:flex-row sm:justify-between sm:gap-4 gap-0 border-b-2 border-pink-600 w-full'>
+        <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 dark:text-white text-pretty w-full lg:w-[70%]'>
           Welcome to the Time Tracker App, {user ? user.displayName : 'Guest'}!
         </h1>
         <button
           onClick={handleLogout}
-          className=' self-end sm:self-center px-8 py-2 bg-zinc-200 text-2xl text-emerald-500 font-semibold rounded-full hover:bg-zinc-950 hover:shadow-[0px_0px_10px_1px_#059669]'
+          className='self-end  px-8 py-2 bg-zinc-950 hover:bg-zinc-200 dark:bg-zinc-200 dark:hover:bg-zinc-950 text-2xl text-emerald-500 font-semibold rounded-full hover:shadow-[0px_0px_10px_1px_#DB2777] dark:hover:shadow-[0px_0px_10px_1px_#059669]'
         >
           <LogOutIcon />
         </button>
