@@ -10,7 +10,7 @@ import { clearInterval, setInterval } from 'worker-timers';
 const Timer = () => {
   const [timerOn, setTimerOn] = useState(false);
   const [time, setTime] = useState(0);
-  const [date, setDate] = useState(new Date().toLocaleDateString());
+  const [date, setDate] = useState(new Date().toLocaleDateString('en-GB'));
 
   useEffect(() => {
     let interval = null;
