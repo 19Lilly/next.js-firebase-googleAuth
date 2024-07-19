@@ -74,7 +74,7 @@ const EntriesList = () => {
                   {convertTimetoString(entry[1].time)}
                 </p>
                 <button
-                  onClick={() => deleteEntry(entry[0])}
+                  onDoubleClick={() => deleteEntry(entry[0])}
                   className='size-8 flex items-center justify-center border-l border-emerald-950 hover:text-emerald-400 hover:scale-105'
                 >
                   &times;
