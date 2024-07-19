@@ -32,7 +32,7 @@ const Home = () => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center text-center h-[90vh]'>
+    <div className='flex flex-col items-center justify-center text-center h-[85vh]'>
         {user ? (
         <TimeTracker />
       ) : (

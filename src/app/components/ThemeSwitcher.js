@@ -1,5 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
+import { MdOutlineWbSunny } from 'react-icons/md';
+import { LuMoonStar } from 'react-icons/lu';
 
 const ThemeSwitcher = () => {
     const [darkMode, setDarkMode] = useState(false)
@@ -23,7 +25,7 @@ const ThemeSwitcher = () => {
         onClick={toggleDarkMode}
         className='px-4 py-2 rounded-md bg-gray-800 text-white'
       >
-        {darkMode ? 'Light Mode' : 'Dark Mode'}
+        {darkMode ? <MdOutlineWbSunny /> : <LuMoonStar />}
       </button>
     );
 
