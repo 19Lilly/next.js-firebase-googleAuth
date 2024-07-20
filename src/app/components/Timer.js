@@ -99,26 +99,20 @@ const Timer = () => {
   };
 
   return (
-      <div className=' flex flex-col bg-emerald-400 dark:bg-emerald-200 rounded-xl p-4 min-[450px]:flex-row justify-between gap-6 items-center text-3xl md:text-4xl'>
-        <div>{date}</div>
-        <div className='sm:mr-auto border border-violet-600 space-y-2 '>
-          <p>{convertTimetoString(timer.timerValue)}</p>
-          <label className='flex flex-col items-start gap-2 text-xl'>
-              Add description:
-              <input type='text' className='p-2 flex-1 rounded-xl' />
-          </label>
-        </div>
-        <div className='flex gap-2 '>
-          {!paused && (
-            <PauseButton toggleTimer={() => setPaused(prevVal => !prevVal)} />
-          )}
-          {paused && (
-            <StartButton toggleTimer={() => setPaused(prevVal => !prevVal)} />
-          )}
-          <SaveButton handleClick={saveData} />
-          <CancelButton handleDoubleClick={resetTimer} />
-        </div>
+    <div className='bg-emerald-400 dark:bg-emerald-200 mt-6 p-6 w-full rounded-xl flex flex-col min-[450px]:flex-row justify-between gap-6 items-center text-3xl md:text-4xl'>
+      <div>{date}</div>
+      <div className=' sm:mr-auto'>{convertTimetoString(timer.timerValue)}</div>
+      <div className='flex gap-2 '>
+        {!paused && (
+          <PauseButton toggleTimer={() => setPaused(prevVal => !prevVal)} />
+        )}
+        {paused && (
+          <StartButton toggleTimer={() => setPaused(prevVal => !prevVal)} />
+        )}
+      <SaveButton handleClick={saveData}/> 
+      <CancelButton handleDoubleClick={resetTimer} />
       </div>
+    </div>
   );
 };
 
