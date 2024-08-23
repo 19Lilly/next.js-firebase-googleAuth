@@ -20,7 +20,8 @@ if (!getApps().length) {
 
 export const app = initializeApp(firebaseConfig);
 
-export const  auth = getAuth(app);
+export const auth = getAuth(app);
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 // Initialize Firebase auth
 
 
